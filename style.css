@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -7,54 +6,72 @@
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+body {
+  padding: 1em;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding: 0.5em 1em;
+  border: 2px solid black;
+}
+
+nav > a {
+  text-decoration: none;
+  color: black;
+  padding: 0.5em 1em;
+}
+
+nav > a:nth-child(2) {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+#books,
+#form,
+#contact {
+  height: calc(100vh - 9em);
+}
+
+#books {
+  width: 100%;
+}
+
 section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3em 5em;
-  /* position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%); */
   height: 100vh;
   justify-content: center;
   width: 70vw;
   margin: 2em auto;
+  width: 100%;
 }
 
 h1 {
   padding-bottom: 1em;
   font-size: 2em;
+  font-size: 1.5em;
   font-weight: 600;
 }
 
-section > div {
-  padding-bottom: 1em;
-  margin-bottom: 1em;
-  border-bottom: 1px solid grey;
-}
-
-div p {
-  margin-bottom: 0.5em;
 h2 {
+  font-size: 2em;
   margin: 2em 0 1em 0;
   text-align: center;
   font-weight: 600;
 }
-
-input {
-  margin: 0.5em 0;
-  /* align-self: flex-start; */
 .underline {
   border: 1px solid black;
   width: 20em;
   display: flex;
 }
-
 .book-div {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1em;
   padding: 0.6em;
   align-items: center;
   background-color: #d3d3d338;
@@ -62,50 +79,23 @@ input {
 
 .add-book {
   width: 100%;
+.all-books {
+  width: 70%;
   padding: 0.5em;
   margin-bottom: 4em;
   border: black solid 2px;
-  border-radius: 10px;
-}
-
-.book-div:first-child {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.book-div:last-child {
-  margin-bottom: 0;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.add-book {
-  width: 100%;
-.book-div:nth-child(odd) {
-  background-color: rgb(211, 211, 211, 0.8);
-}
-
-.new-book {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-}
-
-input {
-  padding: 1em;
-  border: black solid 2px;
-  margin-bottom: 1em;
-}
-
-input:focus {
-  border-radius: 10px;
-}
-
-.add {
-  align-self: flex-end;
-  padding: 0.5em 3em;
-}
-
+@@ -88,3 +120,14 @@ input:focus {
 .remove {
   padding: 0.5em 2em;
+}
+
+footer {
+  display: flex;
+  width: 100%;
+  padding: 1em;
+  border: 2px solid black;
+}
+
+.hidden {
+  display: none !important;
 }
