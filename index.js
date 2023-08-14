@@ -1,6 +1,6 @@
+/* eslint-disable max-classes-per-file */
 window.onload = () => {
   const add = document.querySelector('.add');
-  const remove = document.querySelector('.remove');
   const addBook = document.querySelector('.add-book');
   const parser = new DOMParser();
 
@@ -10,12 +10,24 @@ window.onload = () => {
       this.author = author;
     }
   }
+  class Library {
+    constructor() {
+      this.bookList = [];
+      this.addBook = document.querySelector('.add-book');
+      this.parser = new DOMParser();
 
-  const bookList = [];
-
-  let showBooks = () => {
-    bookList.forEach((e, i) =>{
+  const bookStorage = localStorage.getItem('bookArray');
   let bookList = [];
+      this.removeBook = (e, newBookElement) => {
+        const index = e.target.getAttribute('myIndex');
+        this.bookList = this.bookList.filter((element, i) => {
+          if (i === parseInt(index, 10)) {
+            return false;
+          }
+          return true;
+        });
+        newBookElement.remove();
+      };
 
   const removeBook = (e, newBookElement) => {
     const index = e.target.getAttribute('myIndex');
@@ -27,94 +39,69 @@ window.onload = () => {
     });
     newBookElement.remove();
   };
+      this.showBooks = () => {
+        this.addBook.innerHTML = '';
+        this.bookList.forEach((e, i) => {
+          const newBook = `
+          <div>
+            <p>${e.title}</p>
+            <p>${e.author}</p>
+            <button type="button" class="remove" myIndex ="${i}" >Remove</button>
+          </div>
+          `;
+          const newBookElement = this.parser.parseFromString(newBook, 'text/html').body.firstChild;
+          const remove = newBookElement.querySelector('.remove');
+          remove.addEventListener('click', (e) => {
+            this.removeBook(e, newBookElement);
+            localStorage.setItem('bookArray', JSON.stringify(this.bookList));
+          });
+          this.addBook.append(newBookElement);
+        });
+      };
+    }
+  }
 
   const showBooks = () => {
     addBook.innerHTML = '';
     bookList.forEach((e, i) => {
       const newBook = `
       <div>
-      <p>${e.title}</p>
-      <p>${e.author}</p>
-      <button type="button" class="remove" myIndex ="${i}" >Remove</button>
         <p>${e.title}</p>
         <p>${e.author}</p>
         <button type="button" class="remove" myIndex ="${i}" >Remove</button>
       </div>
-      `;      
-      const newBookElement = parser.parseFromString(newBook, 'text/html').body.firstChild;      
-      addBook.append(newBookElement); 
-    })
-  }
       `;
-      
-       const book = new Book(title, author);
-    bookList.push(book);
-    showBooks();
-    document.querySelector('.title').value = '';
-    document.querySelector('.author').value = '';
-  });
+      const newBookElement = parser.parseFromString(newBook, 'text/html').body.firstChild;
+      const remove = newBookElement.querySelector('.remove');
+      remove.addEventListener('click', (e) => {
+        removeBook(e, newBookElement);
+        localStorage.setItem('bookArray', JSON.stringify(bookList));
+      });
+      addBook.append(newBookElement);
+    });
   };
+  const library = new Library();
+  const bookStorage = localStorage.getItem('bookArray');
+
+  if (bookStorage) {
+    bookList = JSON.parse(bookStorage);
+    showBooks();
+    library.bookList = JSON.parse(bookStorage);
+    library.showBooks();
+  }
 
   add.addEventListener('click', (e) => {
-    e.preventDefault();
-
+@@ -55,10 +61,10 @@ window.onload = () => {
     const title = document.querySelector('.title').value;
-    const author = document.querySelector('.author').value;  
-
-      const book = new Book(title, author);
-      bookList.push(book);
-      showBooks()      
     const author = document.querySelector('.author').value;
     const book = new Book(title, author);
     bookList.push(book);
     showBooks();
+    library.bookList.push(book);
+    library.showBooks();
+    document.querySelector('.title').value = '';
+    document.querySelector('.author').value = '';
+    localStorage.setItem('bookArray', JSON.stringify(bookList));
+    localStorage.setItem('bookArray', JSON.stringify(library.bookList));
   });
-
-  const removeBook = (index) => {
-
-  }
 };
-
-
-/* if (title == "" || author == ""){
-  const error = 'All fields are required';
-  const errorElement = parser.parseFromString(error, 'text/html').body.firstChild;
-  errorMsg.append(errorElement) 
-}else {
-  const book = new Book(title, author);
-  const newBook = `
-  <div>
-  <p>${book.title}</p>
-  <p>${book.author}</p>
-  <button type="button" class="remove">Remove</button>
-  </div>
-  `;
-  
-  const newBookElement = parser.parseFromString(newBook, 'text/html').body.firstChild;
-  bookList.push(book);
-  addBook.append(newBookElement);
-} */
-
-/*   const bookListString = bookList.map((element) => `
-    <div>
-      <p>${element.title}</p>
-      <p>${element.author}</p>
-      <button type="button" class="remove">Remove</button>
-    </div>
-   `);
-  bookListString.forEach((string) => {
-    const bookListElement = parser.parseFromString(string, 'text/html').body.firstChild;
-    addBook.append(bookListElement);
-  }); */
-
-  /* const newBook = `
-      <div>
-      <p>${book.title}</p>
-      <p>${book.author}</p>
-      <button type="button" class="remove">Remove</button>
-      </div>
-      `;
-      
-      const newBookElement = parser.parseFromString(newBook, 'text/html').body.firstChild;
-      bookList.push(book);
-      addBook.append(newBookElement);  */
