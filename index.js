@@ -45,16 +45,14 @@ window.onload = () => {
       addBook.append(newBookElement); 
     })
   }
-
-
       `;
-      const newBookElement = parser.parseFromString(newBook, 'text/html').body.firstChild;
-      const remove = newBookElement.querySelector('.remove');
-      remove.addEventListener('click', (e) => {
-        removeBook(e, newBookElement);
-      });
-      addBook.append(newBookElement);
-    });
+      
+       const book = new Book(title, author);
+    bookList.push(book);
+    showBooks();
+    document.querySelector('.title').value = '';
+    document.querySelector('.author').value = '';
+  });
   };
 
   add.addEventListener('click', (e) => {
