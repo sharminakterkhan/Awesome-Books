@@ -124,7 +124,7 @@ Clone this repository to your desired folder:
 
 Example commands:
 
-git clone git@github.com:https://github.com/sharminkhan0/Awesome-books.git
+git clone git@github.com:
 
 
 ### Install
